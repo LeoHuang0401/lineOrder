@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.width-40 {
+	width: 40px;
+}
+
+.margin-r-10 {
+	margin-right: 10px;
+}
+
+.product-card .card-header span, 
+.product-card .list-group-item span,
+.product-card .category-title {
+	display: inline-block !important;
+}
+
+.product-card {
+	margin: 15px;
+}
