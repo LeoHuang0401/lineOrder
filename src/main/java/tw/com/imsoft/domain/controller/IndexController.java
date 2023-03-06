@@ -1,14 +1,14 @@
-package tw.com.imsoft.controller;
+package tw.com.imsoft.domain.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class StoreController {
+public class IndexController {
 
-	@RequestMapping("/store")
-	public ModelAndView store() {
-		return new ModelAndView("/store");
+	@RequestMapping("/index")
+	public ModelAndView index() {
+		return new ModelAndView("index");
 	}
 }

@@ -50,6 +50,7 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link" href="<c:url value="/store" />">附近店家</a></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value="/order" />">點餐</a></li>
+					<li class="nav-item"><a class="nav-link" href="<c:url value="/confirmOrder" />">訂單</a></li>
 					<li class="nav-item"><img
 						class="img-fluid rounded-circle width-40"
 						src="<c:url value="/resources/assets/img/02.jpg"/>" alt="..." /></li>
@@ -58,10 +59,6 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Header-->
-	<header class="masthead text-center text-white"> 
-		<img class="img-fluid rounded-circle" src="<c:url value="/resources/assets/img/banner.jpg"/>" alt="..." />
-	</header>
 	<!-- Content section 1-->
 	
 	<sitemesh:write property="body"/>
@@ -75,10 +72,11 @@
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="<c:out value="resources/jquery/jquery.min.js" />"></script>
 	<!-- Line LIFF SDK v2 版 -->
-	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<!-- 	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
 	<!-- Core theme JS-->
-	<script src="<c:url value="/resources/js/scripts.js"/>"></script>
-	<script src="<c:url value="/resources/js/line-liff.js"/>"></script>
+<%-- 	<script src="<c:url value="/resources/js/scripts.js"/>"></script> --%>
+<%-- 	<script src="<c:url value="/resources/js/line-liff.js"/>"></script>  --%>
 </body>
 </html>
