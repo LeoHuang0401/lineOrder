@@ -55,7 +55,7 @@
         </javaClientGenerator>
 
         <!-- generate table list -->
-        <table tableName="PRODUCT" domainObjectName="Product"
+        <!-- <table tableName="PRODUCT" domainObjectName="Product"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -96,6 +96,27 @@
                selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
           
+        </table> -->
+        <table tableName="TY_ORDER" domainObjectName="TyOrder"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+          
+        </table>
+        <table tableName="PRODUCT" domainObjectName="Product"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+          
+        </table>
+        <table tableName="PRODUCT_CATEGORY" domainObjectName="ProductCategory"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+          
         </table>
         <table tableName="TY_ORDER_DETAIL" domainObjectName="TyOrderDetail"
                enableCountByExample="false" enableUpdateByExample="false"
@@ -104,6 +125,13 @@
             <property name="useActualColumnNames" value="false"/>
           
         </table>
+        <!-- <table tableName="PRODUCT_SIZE" domainObjectName="ProductSize"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+          
+        </table> -->
         
 <!--        <table tableName="INS_KIND_PRODUCT_DETAIL_AMOUNT" domainObjectName="InsKindProductDetailAmount"-->
 <!--               enableCountByExample="false" enableUpdateByExample="false"-->

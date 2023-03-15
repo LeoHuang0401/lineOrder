@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+	<!-- Header-->
+	<header class="masthead text-center text-white"> 
+		<img class="img-fluid rounded-circle" src="<c:url value="/resources/assets/img/banner.jpg"/>" alt="..." />
+	</header>
 	<!-- Content section 1-->
 	<div class="card product-card">
 		<div class="card-header">

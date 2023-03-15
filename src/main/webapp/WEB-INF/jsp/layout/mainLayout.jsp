@@ -72,7 +72,7 @@
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="<c:out value="resources/jquery/jquery.min.js" />"></script>
+	<script src="<c:out value="/onlineOrder/resources/jquery/jquery.min.js" />"></script>
 	<!-- Line LIFF SDK v2 版 -->
 <!-- 	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
 	<!-- Core theme JS-->

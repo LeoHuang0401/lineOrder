@@ -11328,6 +11328,17 @@ header.masthead {
   background-attachment: scroll;
   background-size: cover;
 }
+header.back {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(1.5rem + 72px);
+  padding-bottom: 2rem;
+  background: linear-gradient(0deg, #ff6a00 0%, #ee0979 100%);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
 header.masthead .masthead-content {
   z-index: 1;
   position: relative;

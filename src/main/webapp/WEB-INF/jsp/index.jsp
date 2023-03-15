@@ -34,6 +34,7 @@
                     <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="<c:url value="/store" />">附近店家</a></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value="/order" />">點餐</a></li>
+					<li class="nav-item"><a class="nav-link" href="<c:url value="/confirmOrder" />">訂單</a></li>
                         <li class="nav-item"><img class="img-fluid rounded-circle width-40" src="<c:url value="/resources/assets/img/02.jpg"/>" alt="..." /></li>
                         <li class="nav-item"><a class="nav-link" href="#!">oyang</a></li>
                     </ul>

@@ -15,15 +15,20 @@ public class OrderController {
 	@Autowired
 	StoreMapper storeMapper;
 	
+    /*
+     *  菜單menu
+     */
 	@RequestMapping("/order")
 	public ModelAndView order() {
 		return new ModelAndView("/order");
 	}
 	
-	@RequestMapping("/checkOut")
-	public ModelAndView checkOut() {
-		System.out.println(storeMapper.selectByPrimaryKey(new BigDecimal(1)));
-		return new ModelAndView("checkOutOrder");
+	/*
+	 *  商品資訊
+	 */
+	@RequestMapping("/order/orderData")
+	public ModelAndView orderData() {
+	    return new ModelAndView("/order/orderData");
 	}
 
 }
