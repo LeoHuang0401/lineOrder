@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* 預留上下空間 用固定px保持位置 */
+.mainArea {
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+/* 小方格 (每個訂單明細占一格) */
+.littleBox {
+		border-radius: 10px;
+	margin-bottom: 3%;
+}
+/* 大方格 (每個大標題占一格) */
+.bigBox {
+	margin-bottom: 5%;
+}
+/* littleBox裡的img */
+.boxImg {
+	padding:0px;
+	height:100%;
+	width:100%;
+	margin: 5%;
+}
+/* 最下方的button */
+#btnArea {
+	width: 200PX;
+	height: 50PX;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	height:30%;
+}
+/* 放字的box */
+.fontBox {
+	padding: 2%;
+}
