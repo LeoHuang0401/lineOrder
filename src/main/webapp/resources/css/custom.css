@@ -7,7 +7,7 @@
 }
 /* 小方格 (每個訂單明細占一格) */
 .littleBox {
-		border-radius: 10px;
+	border-radius: 10px;
 	margin-bottom: 3%;
 }
 /* 大方格 (每個大標題占一格) */
