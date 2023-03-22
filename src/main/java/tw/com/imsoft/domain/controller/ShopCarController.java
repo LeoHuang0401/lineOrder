@@ -12,9 +12,4 @@ public class ShopCarController {
     public ModelAndView shopCar() {
         return new ModelAndView("/shopCar");
     }
-    
-	@RequestMapping("/productDetail")
-	public ModelAndView showProductDetail() {
-		return new ModelAndView("/productDetail");
-	}
 }

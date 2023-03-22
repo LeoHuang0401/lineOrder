@@ -12,6 +12,6 @@ public class OrderCheckController {
 
     @RequestMapping("/orderCheck")
     public ModelAndView orderCheck() {
-        return new ModelAndView("/orderCheck");
+        return new ModelAndView("/checkOutOrder");
     }
 }
