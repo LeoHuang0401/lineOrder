@@ -27,23 +27,22 @@
 <form id="toShopCar" action="<c:url value="checkToShopCar"/>" method="POST">
 <div class="container mainArea">
 	<!-- 商品資訊 -->
+	<h1 class=""><a href="<c:url value="/order" />" style="width:150px"><i class="fa-solid fa-arrow-left" ></i></a></h1>
 	<div class="card">
-	  <img src="resources/assets/img/06.jpg" class="card-img-top" alt="...">
+	  <img src="../resources/assets/img/06.jpg" class="card-img-top" alt="...">
 	  <div class="card-body">
 	  	<h5 class="card-title">${detail.productName}</h5>
+	  	<input type="hidden" id="productName" name="productName" value="${detail.productName}">
 	  	<input type="hidden" id="productId" name="productId" value="${detail.productId}">
         <div class="row align-items-center" id="chooseNum">
           <div class="col-7 ">
-	          <div class="circle">
-	            <i class="fa-solid fa-minus"></i>
-	          </div>
-	          <div class="square">1</div>
-	          <div class="circle">
-	            <i class="fa-solid fa-plus"></i>
-	          </div>
+	            <a style="padding:5px" onclick="numMinus();"><i class="fa-solid fa-minus"></i></a>
+	          <input type="text" id="num" name="num" style="width:40px;text-align:center" value="" readonly>
+	            <a style="padding:5px" onclick="numPlus();"><i class="fa-solid fa-plus"></i></a>
           </div>
-          <div class="col-auto"><span class="fs-2">${priceM}</span></div>
-          <input type="hidden" id="finalSize" name="finalPrice">
+          <div class="col-auto"><span class="fs-2">$${priceM}</span></div>
+          <input type="hidden" id="finalSize" name="finalSize">
+          <input type="hidden" id="finalPrice" name="finalPrice">
         </div>
     	<p class="card-text">${detail.productDesc}</p>
 	  </div>
@@ -148,11 +147,38 @@
 </div>
 </form>
 <script>
+
+	$(function(){
+		$('#num').val(1);
+	})
+
 	$('#btnArea').on('click',function(){
+		if($('#num').val() == 0){
+			alert('杯數不可為0杯');
+		}else{
 		var size=$('#radioPriceL:checked').val();
 		$('#finalSize').val($('input:radio[name="radioSize"]:checked').val());
+		$('#finalPrice').val(${priceM});
+		if($('#finalSize').val() == 'L'){
+			$('#finalPrice').val(${priceL});
+		}
 		$('#finalSweet').val($('input:radio[name="radioSweet"]:checked').val());
 		$('#finalIce').val($('input:radio[name="radioIce"]:checked').val());
         $('#toShopCar').submit();
-	})
+		}
+	});
+	
+	function numMinus(){
+		var minusNum = $('#num').val();
+		if(minusNum - 1 == 0){
+			alert('杯數不可為0杯');
+		}else{
+		$('#num').val(minusNum - 1);
+		}
+	}
+	
+	function numPlus(){
+		var plusNum = $('#num').val();
+		$('#num').val(parseInt(plusNum)+1);
+	}
 </script>

@@ -58,7 +58,7 @@ function checkData(){
 		alert('取餐時間不得為空');
 		return ;
 	}else if ($('#pickUpTime').val() < '${nowTime}'){
-		alert('取餐時間不可早於現在時間');
+		alert('取餐時間不可早於即時起15分鐘');
 	}else{
  	$('#form1').submit();
 	}

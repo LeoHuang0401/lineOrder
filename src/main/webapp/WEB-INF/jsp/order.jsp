@@ -16,7 +16,7 @@
 				</div>
 				<c:forEach items="${list.dataList}" var="map">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item" onclick="test(${map.PRODUCT_ID});">
+					<li class="list-group-item" onclick="productDetail(${map.PRODUCT_ID});">
 						<span class="col-7">${map.PRODUCT_NAME}</span> 
 						<span class="col-2">${map.price1}</span> 
 						<c:if test="${map.price2 != null}">
@@ -28,7 +28,7 @@
 			</div>
 	</c:forEach>
 <script>
-	function test(id){
+	function productDetail(id){
 		window.location.href='<c:url value="/order/orderData?id="/>'+id;
 	}
 </script>

@@ -1,8 +1,6 @@
 package tw.com.imsoft.domain.vo.order;
 
 
-import java.math.BigDecimal;
-
 import lombok.Data;
 
 @Data
@@ -18,5 +16,5 @@ public class OrderProductDetail {
     
     private String productSizeName;
     
-    private Object price;
+    private String price;
 }

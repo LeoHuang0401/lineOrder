@@ -25,7 +25,7 @@
     <result column="PRODUCT_DESC" jdbcType="VARCHAR" property="productDesc" />
     <result column="PRODUCT_IMG" jdbcType="VARCHAR" property="productImg" />
     <result column="PRODUCT_SIZE_NAME" jdbcType="VARCHAR" property="productSizeName" />
-    <result column="PRICE" jdbcType="NUMERIC" property="price" />
+    <result column="PRICE" jdbcType="VARCHAR" property="price" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--

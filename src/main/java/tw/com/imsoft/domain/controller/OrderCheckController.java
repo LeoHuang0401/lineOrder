@@ -1,8 +1,19 @@
 package tw.com.imsoft.domain.controller;
 
+import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import tw.com.imsoft.domain.service.OrderCheckService;
 
 /*
  * 確認訂單
@@ -10,8 +21,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OrderCheckController {
 
+    @Autowired
+    OrderCheckService orderCheckService;
+    
     @RequestMapping("/orderCheck")
-    public ModelAndView orderCheck() {
-        return new ModelAndView("/checkOutOrder");
+    public ModelAndView orderCheck(HttpServletRequest req,HttpServletResponse res) {
+        ModelAndView mv = new ModelAndView("/checkOutOrder");
+        Map<String,Object> totalMap = orderCheckService.showOrderCheck(req);
+        if(totalMap.get("totalNum") == null || totalMap.get("totalPrice") == null) {
+            try {
+                res.sendRedirect("order");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            mv.addObject("pickUpTime", LocalTime.now().plusMinutes(15));
+            mv.addObject("dataList", req.getSession().getAttribute("productData"));
+            mv.addObject("total", totalMap);
+        }
+        return mv;
     }
 }

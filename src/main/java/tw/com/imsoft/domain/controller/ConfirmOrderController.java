@@ -35,11 +35,11 @@ public class ConfirmOrderController {
      * 消費者付款請求 Api
      */
     @PostMapping(value = "/confirmOrder/checkLinePay")
-    public void pay(HttpServletRequest req,HttpServletResponse res) {
-        System.out.println("取餐時間 => " + req.getParameter("pickUpTime"));
+    public void pay(HttpServletRequest req,HttpServletResponse res,String takeTime) {
+        System.out.println("取餐時間 => " + takeTime);
         try {
 //          取得LinePay 付款頁面
-            String linePayUrl = confirmOrderService.requestApi();
+            String linePayUrl = confirmOrderService.requestApi(req,takeTime);
 //          轉導至LinePay 付款頁面
             res.sendRedirect(linePayUrl);
         } catch (IOException e) {
@@ -51,13 +51,14 @@ public class ConfirmOrderController {
      * 商家請款Api
      */
     @RequestMapping("/confirmOrder/checkPay")
-    public void checkPay(HttpServletResponse res,String transactionId,String orderId) {
+    public void checkPay(HttpServletRequest req,HttpServletResponse res,String transactionId,String orderId) {
         System.out.println("ID => " + transactionId + "-" + orderId);
         try {
 //          請款Api
-            confirmOrderService.confirmApi(transactionId, orderId);
+            confirmOrderService.confirmApi(req,transactionId, orderId);
 //          成功後轉導至成功付款頁面
-            res.sendRedirect("/onlineOrder/sucessPay");
+            req.getSession().invalidate();
+            res.sendRedirect("../order");
         } catch (IOException e) {
             e.printStackTrace();
         }
