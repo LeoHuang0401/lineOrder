@@ -17,8 +17,6 @@ import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 @Service
 public class OrderService {
 
-    private static List<OrderToShopCar> detailList = new ArrayList<>();
-    
     @Autowired
     ProductCustomMapper productCustomMapper;
     
@@ -72,6 +70,7 @@ public class OrderService {
      *  商品加入購物車 加(session)
      */
     public void checkToShopCar(HttpServletRequest req) {
+        List<OrderToShopCar> detailList =(List) req.getSession().getAttribute("productData");
         String productName = req.getParameter("productName");
         String productId = req.getParameter("productId");
         int num = Integer.parseInt(req.getParameter("num").toString());
@@ -79,27 +78,28 @@ public class OrderService {
         String price = req.getParameter("finalPrice");
         String ice = req.getParameter("finalIce");
         String sweet = req.getParameter("finalSweet");
-        if(!detailList.isEmpty()) {
-            OrderToShopCar order = null;
-                for(OrderToShopCar ots : detailList) {
-                    if(productId.equals(ots.getProductId()) && productName.equals(ots.getProductName()) && size.equals(ots.getSize())&& price.equals(ots.getPrice())
-                            && ice.equals(ots.getIce()) && sweet.equals(ots.getSweet())) {
-                        ots.setNum(ots.getNum()+num);
-                    }else {
-                        order = new OrderToShopCar();
-                        order.setProductName(productName);
-                        order.setProductId(productId);
-                        order.setSize(size);
-                        order.setPrice(price);
-                        order.setIce(ice);
-                        order.setSweet(sweet);
-                        order.setNum(num);
+        if(detailList != null) {
+                OrderToShopCar order = null;
+                    for(OrderToShopCar ots : detailList) {
+                        if(productId.equals(ots.getProductId()) && productName.equals(ots.getProductName()) && size.equals(ots.getSize())&& price.equals(ots.getPrice())
+                                && ice.equals(ots.getIce()) && sweet.equals(ots.getSweet())) {
+                            ots.setNum(ots.getNum()+num);
+                        }else {
+                            order = new OrderToShopCar();
+                            order.setProductName(productName);
+                            order.setProductId(productId);
+                            order.setSize(size);
+                            order.setPrice(price);
+                            order.setIce(ice);
+                            order.setSweet(sweet);
+                            order.setNum(num);
+                        }
                     }
-                }
-                if(order != null) {
-                    detailList.add(order);
-                }
+                    if(order != null) {
+                        detailList.add(order);
+                    }
         }else {
+            detailList = new ArrayList<>();
             OrderToShopCar order = new OrderToShopCar();
             order.setProductName(productName);
             order.setProductId(productId);
