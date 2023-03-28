@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class OrderProductDetail {
 
+    private String productSizeId;
+    
     private Integer productId;
     
     private String productName;

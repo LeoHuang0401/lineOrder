@@ -13,6 +13,9 @@ import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 @Service
 public class OrderCheckService {
 
+    /*
+     * 確認訂單
+     */
     public Map<String,Object> showOrderCheck(HttpServletRequest req) {
         Map<String,Object> totalMap = new HashMap<>();
             totalMap.put("totalNum", req.getSession().getAttribute("totalNum"));

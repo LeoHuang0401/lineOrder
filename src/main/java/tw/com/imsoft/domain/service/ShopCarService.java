@@ -54,7 +54,6 @@ public class ShopCarService {
      */
     public void editProduct(HttpServletRequest req,String index,int num,String mt) {
         List<OrderToShopCar> shopCarList =(List) req.getSession().getAttribute("productData");
-        System.out.println("list => " + shopCarList);
         if(!shopCarList.isEmpty()) {
             if("plus".equals(mt)) {
                 shopCarList.get(Integer.parseInt(index)).setNum(num+1);

@@ -1,6 +1,7 @@
 package tw.com.imsoft.domain.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class OrderCheckController {
                 e.printStackTrace();
             }
         }else {
-            mv.addObject("pickUpTime", LocalTime.now().plusMinutes(15));
+            mv.addObject("pickUpTime", LocalDateTime.now().plusMinutes(15));
             mv.addObject("dataList", req.getSession().getAttribute("productData"));
             mv.addObject("total", totalMap);
         }

@@ -19,7 +19,7 @@
 			<div class="row align-items-center" >
 				<!-- bg-info bg-warning bg-primary-->
 				<div class="col-3 ">
-					<div><img class="boxImg" src="resources/assets/img/06.jpg"/></div>
+					<div><img class="boxImg" src="<c:url value="resources/assets/img/06.jpg"/>"/></div>
 				</div>
 				<div class="col-6 fontBox" >
 					<div><span class="fs-6">${data.productName}</span></div>

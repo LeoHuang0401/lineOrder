@@ -11,7 +11,7 @@
 	<div class="bigBox">
 		<h1 class="">預計取餐時間</h1>
 		<div class="bg-secondary">
-			<input class="form-control form-control-lg" type="time" id="takeTime" name="takeTime" onchange="checkTime();">
+			<input class="form-control form-control-lg" type="dateTime-local" id="takeTime" name="takeTime" onchange="checkTime();">
 		</div>
 	</div>
 	</form>
@@ -23,7 +23,7 @@
 			<div class="row align-items-center" >
 				<!-- bg-info bg-warning bg-primary-->
 				<div class="col-3 ">
-					<div><img class="boxImg" src="resources/assets/img/06.jpg"/></div>
+					<div><img class="boxImg" src="<c:url value="/resources/assets/img/06.jpg"/>"/></div>
 				</div>
 				<div class="col-6 fontBox" >
 					<div><span class="fs-6">${data.productName}</span></div>

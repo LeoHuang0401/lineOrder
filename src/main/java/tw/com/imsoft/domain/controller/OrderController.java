@@ -41,8 +41,13 @@ public class OrderController {
 	    if(id != null && !"".equals(id)) {
 	        OrderProductDetail detail = orderService.getProductDetail(id);
 	        mv.addObject("detail", detail);
+	        String[] sizeIdData = detail.getProductSizeId().split(",");
 	        String[] sizeData = detail.getProductSizeName().split(",");
 	        String[] priceData = detail.getPrice().split(",");
+	        mv.addObject("noM", sizeIdData[0]);
+            if(sizeIdData.length > 1) {
+                mv.addObject("noL", sizeIdData[1]);
+            }
 	        mv.addObject("sizeM", sizeData[0]);
 	        if(sizeData.length > 1) {
 	            mv.addObject("sizeL", sizeData[1]);

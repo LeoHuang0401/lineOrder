@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tw.com.imsoft.dao.mapper.StoreAuthMapper;
 import tw.com.imsoft.dao.model.StoreAuth;
 import tw.com.imsoft.domain.service.ConfirmOrderService;
+import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 
 /*
  *  確認訂單頁面 以及 LINE PAY APIs
@@ -36,7 +38,6 @@ public class ConfirmOrderController {
      */
     @PostMapping(value = "/confirmOrder/checkLinePay")
     public void pay(HttpServletRequest req,HttpServletResponse res,String takeTime) {
-        System.out.println("取餐時間 => " + takeTime);
         try {
 //          取得LinePay 付款頁面
             String linePayUrl = confirmOrderService.requestApi(req,takeTime);
@@ -52,7 +53,6 @@ public class ConfirmOrderController {
      */
     @RequestMapping("/confirmOrder/checkPay")
     public void checkPay(HttpServletRequest req,HttpServletResponse res,String transactionId,String orderId) {
-        System.out.println("ID => " + transactionId + "-" + orderId);
         try {
 //          請款Api
             confirmOrderService.confirmApi(req,transactionId, orderId);

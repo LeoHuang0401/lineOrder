@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tw.com.imsoft.dao.mapper.custom.TyOrderDetailMapper">
+<mapper namespace="tw.com.imsoft.dao.mapper.custom.TyOrderDetailCustomMapper">
   <resultMap id="BaseResultMap" type="tw.com.imsoft.dao.model.TyOrderDetail">
     <!--
       WARNING - @mbg.generated
@@ -9,10 +9,37 @@
     -->
     <id column="ORDER_DETAIL_NO" jdbcType="NUMERIC" property="orderDetailNo" />
     <result column="ORDER_NO" jdbcType="NUMERIC" property="orderNo" />
-    <result column="PRODUCT_ID" jdbcType="NUMERIC" property="productId" />
+    <result column="PRODUCT_SIZE_ID" jdbcType="NUMERIC" property="productSizeId" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="NUM" jdbcType="NUMERIC" property="num" />
     <result column="SUM" jdbcType="NUMERIC" property="sum" />
   </resultMap>
+  
+  <select id="getCount" resultType="int">
+	  SELECT COUNT(*) 
+	  FROM TY_ORDER_DETAIL
+  </select>
+  
+  <insert id="insertDbDomainSucBatch" parameterType="java.util.List" >
+		INSERT INTO LINE.TY_ORDER_DETAIL
+		(
+			ORDER_DETAIL_NO
+			,ORDER_NO
+			,PRODUCT_SIZE_ID
+			,REMARK
+			,NUM
+			,SUM
+		) 
+	<foreach collection="list" item="item" index="index" open="(" separator="union" close= ")">
+		SELECT
+			#{item.orderDetailNo,jdbcType=NUMERIC}
+			,#{item.orderNo,jdbcType=NUMERIC}
+			,#{item.productSizeId,jdbcType=NUMERIC}
+			,#{item.remark,jdbcType=VARCHAR}
+			,#{item.num,jdbcType=NUMERIC}
+			,#{item.sum,jdbcType=NUMERIC}
+		FROM DUAL
+	</foreach>
+	</insert>
   
 </mapper>

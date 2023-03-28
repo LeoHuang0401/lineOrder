@@ -29,7 +29,7 @@
 	<!-- 商品資訊 -->
 	<h1 class=""><a href="<c:url value="/order" />" style="width:150px"><i class="fa-solid fa-arrow-left" ></i></a></h1>
 	<div class="card">
-	  <img src="../resources/assets/img/06.jpg" class="card-img-top" alt="...">
+	  <img src="<c:url value="/resources/assets/img/06.jpg"/>" class="card-img-top" alt="...">
 	  <div class="card-body">
 	  	<h5 class="card-title">${detail.productName}</h5>
 	  	<input type="hidden" id="productName" name="productName" value="${detail.productName}">
@@ -43,6 +43,7 @@
           <div class="col-auto"><span class="fs-2">$${priceM}</span></div>
           <input type="hidden" id="finalSize" name="finalSize">
           <input type="hidden" id="finalPrice" name="finalPrice">
+          <input type="hidden" id="finalNo" name="finalNo">
         </div>
     	<p class="card-text">${detail.productDesc}</p>
 	  </div>
@@ -52,14 +53,14 @@
 	  <div class="card-body">
 	    <h5 class="card-title">份量</h5>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeM" value="M">
+		  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeM" value="M" checked>
 		  <label class="form-check-label" for="radioSizeM">
 		  ${sizeM}
 		  </label>
 		</div>
 		<c:if test="${sizeL != null}">
 			<div class="form-check">
-			  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeL" value="L" checked>
+			  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeL" value="L">
 			  <label class="form-check-label" for="radioSizeL">
 			    ${sizeL} (+${priceL - priceM}元)
 			  </label>
@@ -159,8 +160,10 @@
 		var size=$('#radioPriceL:checked').val();
 		$('#finalSize').val($('input:radio[name="radioSize"]:checked').val());
 		$('#finalPrice').val(${priceM});
+		$('#finalNo').val(${noM});
 		if($('#finalSize').val() == 'L'){
 			$('#finalPrice').val(${priceL});
+			$('#finalNo').val(${noL});
 		}
 		$('#finalSweet').val($('input:radio[name="radioSweet"]:checked').val());
 		$('#finalIce').val($('input:radio[name="radioIce"]:checked').val());

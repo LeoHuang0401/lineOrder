@@ -17,4 +17,9 @@
     <result column="STATUS" jdbcType="VARCHAR" property="status" />
   </resultMap>
   
+  <select id="getCount" resultType="int">
+  SELECT COUNT(*) 
+  FROM TY_ORDER
+  </select>
+  
 </mapper>

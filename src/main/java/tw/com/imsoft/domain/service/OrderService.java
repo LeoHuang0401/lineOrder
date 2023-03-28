@@ -15,6 +15,7 @@ import tw.com.imsoft.domain.vo.order.OrderProductDetail;
 import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 
 @Service
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class OrderService {
 
     @Autowired
@@ -25,9 +26,12 @@ public class OrderService {
      */
     public List<OrderData> getProductData(){
         List<Map<String,Object>> dataList = productCustomMapper.selectProductData();
+        // 最終商品結構
         List<OrderData> finalList = new ArrayList<>();
+        // OrderData 商品內容
         List<Map<String,Object>> orderDataList = new ArrayList<>();
         OrderData orderData = new OrderData();
+        // 取出一筆資料內的商品種類作為基準判斷
         String cateId = dataList.get(0).get("PRODUCT_CATEGORY_ID").toString();
         for(Map<String,Object> data : dataList) {
             if(cateId.equals(data.get("PRODUCT_CATEGORY_ID").toString())) {
@@ -73,21 +77,25 @@ public class OrderService {
         List<OrderToShopCar> detailList =(List) req.getSession().getAttribute("productData");
         String productName = req.getParameter("productName");
         String productId = req.getParameter("productId");
+        String productSizeId = req.getParameter("finalNo");
         int num = Integer.parseInt(req.getParameter("num").toString());
         String size = req.getParameter("finalSize");
         String price = req.getParameter("finalPrice");
         String ice = req.getParameter("finalIce");
         String sweet = req.getParameter("finalSweet");
+        // 判斷session 裡是否已有商品
         if(detailList != null) {
                 OrderToShopCar order = null;
                     for(OrderToShopCar ots : detailList) {
-                        if(productId.equals(ots.getProductId()) && productName.equals(ots.getProductName()) && size.equals(ots.getSize())&& price.equals(ots.getPrice())
+                        // 判斷選取商品是否跟session 內的商品資訊一樣
+                        if(productId.equals(ots.getProductId()) && productName.equals(ots.getProductName()) && productSizeId.equals(ots.getProductSizeId()) && size.equals(ots.getSize())&& price.equals(ots.getPrice())
                                 && ice.equals(ots.getIce()) && sweet.equals(ots.getSweet())) {
                             ots.setNum(ots.getNum()+num);
                         }else {
                             order = new OrderToShopCar();
                             order.setProductName(productName);
                             order.setProductId(productId);
+                            order.setProductSizeId(productSizeId);
                             order.setSize(size);
                             order.setPrice(price);
                             order.setIce(ice);
@@ -103,6 +111,7 @@ public class OrderService {
             OrderToShopCar order = new OrderToShopCar();
             order.setProductName(productName);
             order.setProductId(productId);
+            order.setProductSizeId(productSizeId);
             order.setSize(size);
             order.setPrice(price);
             order.setIce(ice);
