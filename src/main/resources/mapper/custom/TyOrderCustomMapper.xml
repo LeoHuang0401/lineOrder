@@ -22,4 +22,10 @@
   FROM TY_ORDER
   </select>
   
+  <select id="selectTotalPrice" parameterType="java.math.BigDecimal" resultType="java.math.BigDecimal">
+  	SELECT TOTAL_PRICE
+  	FROM TY_ORDER
+  	WHERE ORDER_NO = #{orderNo,jdbcType=NUMERIC}
+  </select>
+  
 </mapper>

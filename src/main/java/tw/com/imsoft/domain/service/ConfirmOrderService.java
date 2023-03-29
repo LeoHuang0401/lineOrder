@@ -110,11 +110,11 @@ public class ConfirmOrderService {
     //      付款成功後的轉導頁面
             RedirectUrls redirectUrls = new RedirectUrls();
             // 本地
-            redirectUrls.setConfirmUrl("http://localhost:8081/onlineOrder/confirmOrder/checkPay");
-            redirectUrls.setCancelUrl("http://localhost:8081/onlineOrder/order");
+//            redirectUrls.setConfirmUrl("http://localhost:8081/onlineOrder/confirmOrder/checkPay");
+//            redirectUrls.setCancelUrl("http://localhost:8081/onlineOrder/order");
             // server
-//            redirectUrls.setConfirmUrl("https://service.imsoft.com.tw/onlineOrder/confirmOrder/checkPay");
-//            redirectUrls.setCancelUrl("https://service.imsoft.com.tw/onlineOrder/order");
+            redirectUrls.setConfirmUrl("https://service.imsoft.com.tw/onlineOrder/confirmOrder/checkPay");
+            redirectUrls.setCancelUrl("https://service.imsoft.com.tw/onlineOrder/order");
             form.setRedirectUrls(redirectUrls);
     
             // insert ty_order 訂單資料表
@@ -129,6 +129,8 @@ public class ConfirmOrderService {
             tyOrderMapper.insertSelective(tyOrder);
             // insert 明細
             tyOrderDetailCustomMapper.insertDbDomainSucBatch(detailList);
+            // 清除session
+            req.getSession().invalidate();
             try {
     //          產生 requestApi requestHeaders 所需的Uri、隨機數、HmacBase64簽章
                 String requestUri = "/v3/payments/request";
@@ -153,17 +155,18 @@ public class ConfirmOrderService {
     /*
      * 商家請款 ConfirmApi
      */
-    public void confirmApi(HttpServletRequest req,String transactionId,String orderId) {
+    public void confirmApi(String transactionId,String orderId) {
         // 將訂單狀態改為 Y(已付款)
         TyOrder tyOrder = new TyOrder();
         tyOrder.setOrderNo(new BigDecimal(orderId));
         tyOrder.setStatus("Y");
         tyOrderMapper.updateByPrimaryKeySelective(tyOrder);
-        String totalPrice = req.getSession().getAttribute("totalPrice").toString();
+        BigDecimal totalPrice = tyOrderCustomMapper.selectTotalPrice(new BigDecimal(orderId));
+        System.out.println("totalPrice -> " + totalPrice);
         ObjectMapper objectMapper = new ObjectMapper();
 //      資料庫撈出訂單的 價格以及幣種
         ConfirmData confirmData = new ConfirmData();
-        confirmData.setAmount(new BigDecimal(totalPrice));
+        confirmData.setAmount(totalPrice);
         confirmData.setCurrency("TWD");
         try {
 //          產生 confirmApi requestHeaders 所需的Uri、隨機數、HmacBase64簽章

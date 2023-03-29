@@ -83,29 +83,31 @@ public class OrderService {
         String price = req.getParameter("finalPrice");
         String ice = req.getParameter("finalIce");
         String sweet = req.getParameter("finalSweet");
+        boolean repeat = false;
         // 判斷session 裡是否已有商品
-        if(detailList != null) {
-                OrderToShopCar order = null;
-                    for(OrderToShopCar ots : detailList) {
-                        // 判斷選取商品是否跟session 內的商品資訊一樣
-                        if(productId.equals(ots.getProductId()) && productName.equals(ots.getProductName()) && productSizeId.equals(ots.getProductSizeId()) && size.equals(ots.getSize())&& price.equals(ots.getPrice())
-                                && ice.equals(ots.getIce()) && sweet.equals(ots.getSweet())) {
-                            ots.setNum(ots.getNum()+num);
-                        }else {
-                            order = new OrderToShopCar();
-                            order.setProductName(productName);
-                            order.setProductId(productId);
-                            order.setProductSizeId(productSizeId);
-                            order.setSize(size);
-                            order.setPrice(price);
-                            order.setIce(ice);
-                            order.setSweet(sweet);
-                            order.setNum(num);
-                        }
-                    }
-                    if(order != null) {
-                        detailList.add(order);
-                    }
+        if(detailList != null && !detailList.isEmpty()) {
+            for (OrderToShopCar ots : detailList) {
+                // 判斷選取商品是否跟session 內的商品資訊一樣
+                if (productId.equals(ots.getProductId()) && productName.equals(ots.getProductName())
+                        && productSizeId.equals(ots.getProductSizeId()) && size.equals(ots.getSize())
+                        && price.equals(ots.getPrice()) && ice.equals(ots.getIce()) && sweet.equals(ots.getSweet())) {
+                    ots.setNum(ots.getNum() + num);
+                    repeat = true;
+                    break;
+                }
+            }
+            if (!repeat) {
+                OrderToShopCar order = new OrderToShopCar();
+                order.setProductName(productName);
+                order.setProductId(productId);
+                order.setProductSizeId(productSizeId);
+                order.setSize(size);
+                order.setPrice(price);
+                order.setIce(ice);
+                order.setSweet(sweet);
+                order.setNum(num);
+                detailList.add(order);
+            }
         }else {
             detailList = new ArrayList<>();
             OrderToShopCar order = new OrderToShopCar();

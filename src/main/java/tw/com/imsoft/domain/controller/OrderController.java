@@ -27,9 +27,13 @@ public class OrderController {
      *  菜單menu
      */
 	@RequestMapping("/order")
-	public ModelAndView order() {
+	public ModelAndView order(HttpServletRequest req) {
 	    ModelAndView mv = new ModelAndView("/order");
 	    mv.addObject("data",orderService.getProductData());
+	    List listSize = (List) req.getSession().getAttribute("productData");
+	    if(listSize != null) {
+	        mv.addObject("shopCarNum",listSize.size());
+	    }
 		return mv;
 	}
 	/*

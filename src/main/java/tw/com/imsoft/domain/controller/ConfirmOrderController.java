@@ -52,12 +52,11 @@ public class ConfirmOrderController {
      * 商家請款Api
      */
     @RequestMapping("/confirmOrder/checkPay")
-    public void checkPay(HttpServletRequest req,HttpServletResponse res,String transactionId,String orderId) {
+    public void checkPay(HttpServletResponse res,String transactionId,String orderId) {
         try {
 //          請款Api
-            confirmOrderService.confirmApi(req,transactionId, orderId);
+            confirmOrderService.confirmApi(transactionId, orderId);
 //          成功後轉導至成功付款頁面
-            req.getSession().invalidate();
             res.sendRedirect("../order");
         } catch (IOException e) {
             e.printStackTrace();
