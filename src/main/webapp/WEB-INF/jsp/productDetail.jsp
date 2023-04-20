@@ -21,13 +21,13 @@
   height: 30px;
   text-align: center;
 }
-
+input[type="radio"]:checked{background:#ffc107;}
 </style>
 
 <form id="toShopCar" action="<c:url value="checkToShopCar"/>" method="POST">
 <div class="container mainArea">
 	<!-- 商品資訊 -->
-	<h1 class=""><a href="<c:url value="/order" />" style="width:150px"><i class="fa-solid fa-arrow-left" ></i></a></h1>
+	<h1 class=""></h1>
 	<div class="card">
 	  <img src="<c:url value="/resources/assets/img/06.jpg"/>" class="card-img-top" alt="...">
 	  <div class="card-body">
@@ -53,14 +53,14 @@
 	  <div class="card-body">
 	    <h5 class="card-title">份量</h5>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeM" value="M" checked>
+		  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeM" value="M" style="border: 1px solid #ffc107;" checked>
 		  <label class="form-check-label" for="radioSizeM">
 		  ${sizeM}
 		  </label>
 		</div>
 		<c:if test="${sizeL != null}">
 			<div class="form-check">
-			  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeL" value="L">
+			  <input class="form-check-input" type="radio" name="radioSize" id="radioSizeL" value="L" style="border: 1px solid #ffc107;">
 			  <label class="form-check-label" for="radioSizeL">
 			    ${sizeL} (+${priceL - priceM}元)
 			  </label>
@@ -74,25 +74,25 @@
 	    <h5 class="card-title">甜度</h5>
 	    <input type="hidden" id="finalSweet" name="finalSweet">
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet1" value="全糖">
+		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet1" value="全糖" style="border: 1px solid #ffc107;" checked>
 		  <label class="form-check-label" for="radioSweet1">
 		    全糖
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet2" value="半糖" checked>
+		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet2" value="半糖" style="border: 1px solid #ffc107;" >
 		  <label class="form-check-label" for="radioSweet2">
 		    半糖
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet3" value="微糖" checked>
+		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet3" value="微糖" style="border: 1px solid #ffc107;" >
 		  <label class="form-check-label" for="radioSweet3">
 		    微糖
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet4" value="無糖" checked>
+		  <input class="form-check-input" type="radio" name="radioSweet" id="radioSweet4" value="無糖" style="border: 1px solid #ffc107;" >
 		  <label class="form-check-label" for="radioSweet4">
 		    無糖
 		  </label>
@@ -105,55 +105,57 @@
 	    <h5 class="card-title">冰塊</h5>
 	    <input type="hidden" id="finalIce" name="finalIce">
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce1" value="去冰">
+		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce1" value="去冰" style="border: 1px solid #ffc107;" checked>
 		  <label class="form-check-label" for="radioIce1">
 		    去冰
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce2"  value="微冰" checked>
+		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce2"  value="微冰" style="border: 1px solid #ffc107;">
 		  <label class="form-check-label" for="radioIce2">
 		    微冰
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce3"  value="少冰" checked>
+		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce3"  value="少冰" style="border: 1px solid #ffc107;">
 		  <label class="form-check-label" for="radioIce3">
 		    少冰
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce4"  value="正常冰" checked>
+		  <input class="form-check-input" type="radio" name="radioIce" id="radioIce4"  value="正常冰" style="border: 1px solid #ffc107;">
 		  <label class="form-check-label" for="radioIce4">
 		    正常冰
 		  </label>
 		</div>
 		<div class="form-check">
-		  <input class="form-check-input" type="radio" name="radioIce" id="radioHot1"  value="熱" checked>
+		  <input class="form-check-input" type="radio" name="radioIce" id="radioHot1"  value="熱" style="border: 1px solid #ffc107;">
 		  <label class="form-check-label" for="radioHot1">
 		    熱
 		  </label>
 		</div>
 	  </div>
 	</div>
-</div>
-
-<!-- 按鈕(固定在最下面) -->
-<div class="container-fluid bg-info fixed-bottom" style="height:200px">
-	<div class="row justify-content-center align-items-center" style="height:100%">
-		<div class="row bg-warning justify-content-center d-flex align-items-center" id="btnArea">
-			<div class="col-auto"><span class="fs-3">加入購物車</span></div>
+	<!-- 按鈕(固定在最下面) -->
+	<div class="fixed-bottom" style="height: 70px;margin-bottom:3px;bottom: 50px !important;">
+		<div class="row" style="height: 100%;">
+			<div class="btn-group" role="group" aria-label="Basic example">
+				<button type="button" class="btn" style="background: #FFFAF2;font-weight:bold;" onclick="location.href='<c:url value="/orderCheck"/>'">上一步</button>
+				<button type="button" class="btn" style="background: orange;font-weight:bold;color:white" onclick="toShopCar();">加入購物車</button>
+			</div>
 		</div>
 	</div>
 </div>
+
 </form>
+<div style="height: 70px"></div>
 <script>
 
 	$(function(){
 		$('#num').val(1);
 	})
-
-	$('#btnArea').on('click',function(){
+	
+	function toShopCar(){
 		if($('#num').val() == 0){
 			alert('杯數不可為0杯');
 		}else{
@@ -169,7 +171,7 @@
 		$('#finalIce').val($('input:radio[name="radioIce"]:checked').val());
         $('#toShopCar').submit();
 		}
-	});
+	}
 	
 	function numMinus(){
 		var minusNum = $('#num').val();

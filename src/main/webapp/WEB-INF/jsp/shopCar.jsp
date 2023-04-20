@@ -12,10 +12,10 @@
 	
 	<!-- 大標題1：購物車 -->
 	<div class="bigBox">
-		<h1 class=""><a href="<c:url value="/order" />" style="width:150px"><i class="fa-solid fa-arrow-left" ></i></a>  購物車</h1>
+		<h5 class="" style="margin-left:20px"> 購物車</h5>
 		<c:forEach items="${dataList}" var="data" varStatus="loop">
 <%-- 		onclick="edit(${loop.index});" --%>
-		<div class="bg-secondary littleBox" >
+		<div class=" littleBox" style="background-color:#FFFAF2">
 			<div class="row align-items-center" >
 				<!-- bg-info bg-warning bg-primary-->
 				<div class="col-3 ">
@@ -34,19 +34,16 @@
 		</div>
 		</c:forEach>
 	</div>
-</div>
-<!-- 按鈕(固定在最下面) -->
-<div class="container-fluid bg-info fixed-bottom" style="height:200px">
-	<div class="row justify-content-center" style="height:100%">
-		<div class="row align-items-center" style="height:50%">
-			<div class="col-sm-7" ></div>
-			<div class="col-sm-5">
-				<div class=""><span class="fs-5">數量： ${total.totalNum}</span></div>
-				<div class=""><span class="fs-5">應付金額： ${total.totalPrice}</span></div>
+	<!-- 按鈕(固定在最下面) -->
+	<div class="fixed-bottom" style="height: 120px;margin-bottom:3px;bottom: 50px !important;">
+		<div class="row" style="height: 100%;">
+			<div style="background: #FFF3DE">
+				<span class="fs-5" style="float:right;margin-right:10px">應付金額： ${total.totalPrice}</span><span class="fs-5" style="float:right;margin-right:20px">數量： ${total.totalNum}</span>
 			</div>
-		</div>
-		<div class="row bg-warning justify-content-center d-flex align-items-center" id="btnArea" >
-			<div class="col-auto"><a href="<c:url value="/orderCheck" />" class="text-dark" style="font-size:20px">結帳</a></div>
+			<div class="btn-group" role="group" aria-label="Basic example" >
+				<button type="button" class="btn" style="background: #FFFAF2;font-weight:bold;" onclick="location.href='<c:url value="order"/>'">上一步</button>
+				<button type="button" class="btn" style="background: orange;font-weight:bold;color:white" onclick="location.href='<c:url value="/orderCheck" />'">結帳</button>
+			</div>
 		</div>
 	</div>
 </div>

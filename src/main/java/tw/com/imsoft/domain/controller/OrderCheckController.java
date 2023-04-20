@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tw.com.imsoft.domain.service.OrderCheckService;
 
 /*
- * 確認訂單
+ * 確認明細
  */
 @Controller
 public class OrderCheckController {
@@ -36,9 +36,13 @@ public class OrderCheckController {
                 e.printStackTrace();
             }
         }else {
-            mv.addObject("pickUpTime", LocalDateTime.now().plusMinutes(15));
+            mv.addObject("pickUpTime", LocalTime.now().plusMinutes(15));
             mv.addObject("dataList", req.getSession().getAttribute("productData"));
             mv.addObject("total", totalMap);
+        }
+        if(req.getSession().getAttribute("takeTime") != null) {
+            String takeTime = req.getSession().getAttribute("takeTime").toString();
+            mv.addObject("takeTime",takeTime);
         }
         return mv;
     }

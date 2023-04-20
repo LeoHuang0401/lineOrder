@@ -1,7 +1,6 @@
 package tw.com.imsoft.domain.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tw.com.imsoft.domain.service.OrderService;
 import tw.com.imsoft.domain.vo.order.OrderProductDetail;
-import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 
 @Controller
 public class OrderController {
@@ -27,20 +25,42 @@ public class OrderController {
      *  菜單menu
      */
 	@RequestMapping("/order")
-	public ModelAndView order(HttpServletRequest req) {
+	public ModelAndView order(HttpServletRequest req,String id) {
 	    ModelAndView mv = new ModelAndView("/order");
+	    // 付款畫面回首頁後清除session 資訊
+	    if(req.getSession().getAttribute("takeTime") != null) {
+	        req.getSession().removeAttribute("takeTime");
+	        req.getSession().removeAttribute("orderNo");
+	        req.getSession().removeAttribute("totalPrice");
+	    }
+	    if(req.getSession().getAttribute("test") == null) {
+	        req.getSession().setAttribute("test", "1");
+	    }
+	    if(req.getSession().getAttribute("uLineId") == null) {
+	        req.getSession().setAttribute("uLineId", id);
+	    }
 	    mv.addObject("data",orderService.getProductData());
+	    // 購物車商品數呈現於首頁
 	    List listSize = (List) req.getSession().getAttribute("productData");
 	    if(listSize != null) {
 	        mv.addObject("shopCarNum",listSize.size());
 	    }
 		return mv;
 	}
+	
+	@RequestMapping("/order/Line")
+    public void orderLineId(HttpServletRequest req,String id, String name,HttpServletResponse res) {
+        if(!"".equals(id) && req.getSession().getAttribute("uLineId") == null) {
+            req.getSession().setAttribute("uLineId", id);
+            req.getSession().setAttribute("uLineName", name);
+        }
+        res.setStatus(res.SC_OK);
+    }
 	/*
 	 *  商品資訊
 	 */
 	@RequestMapping("/order/orderData")
-	public ModelAndView orderData(String id) {
+	public ModelAndView orderData(HttpServletRequest req,String id) {
 	    ModelAndView mv = new ModelAndView("/productDetail");
 	    if(id != null && !"".equals(id)) {
 	        OrderProductDetail detail = orderService.getProductDetail(id);
@@ -61,6 +81,10 @@ public class OrderController {
                 mv.addObject("priceL", priceData[1]);
             }
 	    }
+	    List listSize = (List) req.getSession().getAttribute("productData");
+        if(listSize != null) {
+            mv.addObject("shopCarNum",listSize.size());
+        }
 	    return mv;
 	}
 

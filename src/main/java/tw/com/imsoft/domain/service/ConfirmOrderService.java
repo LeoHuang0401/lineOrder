@@ -1,7 +1,9 @@
 package tw.com.imsoft.domain.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +37,6 @@ import tw.com.imsoft.utils.SignatureUtil;
  *  LINE PAY APIs
  */
 @Service
-@Slf4j
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class ConfirmOrderService {
 
@@ -66,8 +67,10 @@ public class ConfirmOrderService {
         List<OrderToShopCar> shopCarList =(List) req.getSession().getAttribute("productData");
         String sucessUrl = "";
         String failUrl = "https://service.imsoft.com.tw/onlineOrder/order";
+        // ty_order orderNo編號
         int count = tyOrderCustomMapper.getCount();
         int orderNo = count+1;
+        // ty_order_detail 編號
         int detailCount = tyOrderDetailCustomMapper.getCount();
         if(shopCarList != null && !shopCarList.isEmpty()) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -98,7 +101,7 @@ public class ConfirmOrderService {
                 tyOrderDetail.setOrderDetailNo(new BigDecimal(detailCount+1));
                 tyOrderDetail.setOrderNo(new BigDecimal(String.valueOf(orderNo)));
                 tyOrderDetail.setProductSizeId(new BigDecimal(ots.getProductSizeId()));
-                tyOrderDetail.setRemark(ots.getIce()+"/"+ots.getSweet());
+                tyOrderDetail.setRemark(ots.getProductName()+"("+ots.getIce()+"/"+ots.getSweet()+")");
                 tyOrderDetail.setNum(new BigDecimal(ots.getNum()));
                 tyOrderDetail.setSum(new BigDecimal((Integer.parseInt(ots.getPrice()) * ots.getNum())));
                 detailCount++;
@@ -120,17 +123,20 @@ public class ConfirmOrderService {
             // insert ty_order 訂單資料表
             TyOrder tyOrder = new TyOrder();
             tyOrder.setOrderNo(new BigDecimal(String.valueOf(orderNo)));
-            tyOrder.setMemId(new BigDecimal(1));
+            tyOrder.setMemId(req.getSession().getAttribute("uLineId").toString());
             tyOrder.setStoreId(new BigDecimal(1));
             tyOrder.setTotalPrice(form.getAmount());
             tyOrder.setOrderTime(LocalDateTime.now());
-            tyOrder.setGetTime(LocalDateTime.parse(takeTime));
+            tyOrder.setGetTime(LocalDateTime.parse(LocalDate.now() + " " + takeTime,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             tyOrder.setStatus("N");
             tyOrderMapper.insertSelective(tyOrder);
+            //把取餐時間放進session 訂單完成所需
+            req.getSession().setAttribute("takeTime", takeTime);
+            req.getSession().setAttribute("orderNo", orderNo);
             // insert 明細
             tyOrderDetailCustomMapper.insertDbDomainSucBatch(detailList);
             // 清除session
-            req.getSession().invalidate();
+            req.getSession().removeAttribute("productData");
             try {
     //          產生 requestApi requestHeaders 所需的Uri、隨機數、HmacBase64簽章
                 String requestUri = "/v3/payments/request";
@@ -162,7 +168,6 @@ public class ConfirmOrderService {
         tyOrder.setStatus("Y");
         tyOrderMapper.updateByPrimaryKeySelective(tyOrder);
         BigDecimal totalPrice = tyOrderCustomMapper.selectTotalPrice(new BigDecimal(orderId));
-        System.out.println("totalPrice -> " + totalPrice);
         ObjectMapper objectMapper = new ObjectMapper();
 //      資料庫撈出訂單的 價格以及幣種
         ConfirmData confirmData = new ConfirmData();

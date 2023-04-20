@@ -26,9 +26,6 @@ import tw.com.imsoft.domain.vo.order.OrderToShopCar;
  */
 @Controller
 public class ConfirmOrderController {
-
-    @Autowired
-    StoreAuthMapper storeAuthMapper;
     
     @Autowired
     ConfirmOrderService confirmOrderService;
@@ -37,12 +34,16 @@ public class ConfirmOrderController {
      * 消費者付款請求 Api
      */
     @PostMapping(value = "/confirmOrder/checkLinePay")
-    public void pay(HttpServletRequest req,HttpServletResponse res,String takeTime) {
+    public void pay(HttpServletRequest req,HttpServletResponse res) {
         try {
-//          取得LinePay 付款頁面
-            String linePayUrl = confirmOrderService.requestApi(req,takeTime);
-//          轉導至LinePay 付款頁面
-            res.sendRedirect(linePayUrl);
+            if(req.getSession().getAttribute("takeTime") != null) {
+                String takeTime = req.getSession().getAttribute("takeTime").toString();
+                System.out.println(takeTime);
+    //          取得LinePay 付款頁面
+                String linePayUrl = confirmOrderService.requestApi(req,takeTime);
+    //          轉導至LinePay 付款頁面
+                res.sendRedirect(linePayUrl);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,7 +58,7 @@ public class ConfirmOrderController {
 //          請款Api
             confirmOrderService.confirmApi(transactionId, orderId);
 //          成功後轉導至成功付款頁面
-            res.sendRedirect("../order");
+            res.sendRedirect("../sucessPay");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -29,7 +29,7 @@ public class TyOrder implements Serializable {
      *
      * @mbg.generated Wed Mar 15 15:35:45 CST 2023
      */
-    private BigDecimal memId;
+    private String memId;
 
     /**
      *

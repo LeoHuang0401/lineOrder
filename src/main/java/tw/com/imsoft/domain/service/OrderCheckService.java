@@ -14,7 +14,7 @@ import tw.com.imsoft.domain.vo.order.OrderToShopCar;
 public class OrderCheckService {
 
     /*
-     * 確認訂單
+     * 確認明細
      */
     public Map<String,Object> showOrderCheck(HttpServletRequest req) {
         Map<String,Object> totalMap = new HashMap<>();

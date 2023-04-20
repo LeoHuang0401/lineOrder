@@ -33,3 +33,16 @@
 .fontBox {
 	padding: 2%;
 }
+
+.box {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 3px;
+	float: left;
+}
+
+.left {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

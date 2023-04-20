@@ -1,5 +1,6 @@
 package tw.com.imsoft.domain.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,10 @@ public class ShopCarController {
     public ModelAndView shopCar(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView("/shopCar");
         Map<String,Object> totalMap = shopCarService.showShopCar(req);
+        List listSize = (List) req.getSession().getAttribute("productData");
+        if(listSize != null) {
+            mv.addObject("shopCarNum",listSize.size());
+        }
         mv.addObject("dataList", req.getSession().getAttribute("productData"));
         mv.addObject("total", totalMap);
         return mv;

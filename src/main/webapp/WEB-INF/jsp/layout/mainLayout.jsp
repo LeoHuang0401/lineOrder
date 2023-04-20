@@ -27,6 +27,7 @@
 	
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="<c:url value="/resources/css/styles.css"/>" rel="stylesheet" />
+<link href="<c:url value="/resources/css/app.css"/>" rel="stylesheet" />
 <link href="<c:url value="/resources/css/common.css"/>" rel="stylesheet" />
 <script src="<c:out value="/onlineOrder/resources/jquery/jquery.min.js" />"></script>
 </head>
@@ -35,9 +36,7 @@
 	<nav
 		class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
 		<div class="container px-5">
-			<a class="navbar-brand" href="#page-top"> <img
-				class="img-fluid rounded-circle width-40 margin-r-10"
-				src="<c:url value="/resources/assets/img/02.jpg"/>" alt="..." />
+			<a class="navbar-brand" href="#page-top">
 				點餐平台
 			</a>
 			<button class="navbar-toggler" type="button"
@@ -48,35 +47,48 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item"><a class="nav-link" href="<c:url value="/store" />">附近店家</a></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value="/order" />">點餐</a></li>
 					<li class="nav-item"><a class="nav-link" href="<c:url value="/shopCar" />">購物車</a></li>
+					<li class="nav-item"><a class="nav-link" href="<c:url value="/orderHistory" />">歷史訂單</a></li>
 					<li class="nav-item"><img
 						class="img-fluid rounded-circle width-40"
-						src="<c:url value="/resources/assets/img/02.jpg"/>" alt="..." /></li>
-					<li class="nav-item"><a class="nav-link" href="#!">oyang</a></li>
+						id="picture"
+						src="<c:url value=""/>" alt="..." /></li>
+					<li class="nav-item"><a id="uName" class="nav-link" href="#!"></a></li>
 				</ul>
+					<input type="hidden" id="uLineD" name="uLineD">
 			</div>
 		</div>
 	</nav>
 	<!-- Content section 1-->
-	
 	<sitemesh:write property="body"/>
-
+	
 	<!-- Footer-->
-	<footer class="py-5 bg-black">
-		<div class="container px-5">
-			<p class="m-0 text-center text-white small">Copyright &copy; Your
-				Website 2022</p>
+	<footer>
+	<div class="bg-gray fixed-bottom" style="height: 60px">
+		<div class="" style="height: 100%;background:#FFFAFA;color:gray">
+			<div class="col-4" align="center" style="margin-top:5px;float:left;"><a href="<c:url value="/order" />"><i class="fa-solid fa-utensils" style="color:gray"></i></a><br>點餐</div>
+			<div class="col-4" align="center" style="margin-top:5px;float:left;"><a href="<c:url value="/shopCar" />"><i class="fa-solid fa-cart-shopping" style="color:gray"></i><c:if test="${shopCarNum != null}">${shopCarNum}</c:if></a><br>購物車</div>
+			<div class="col-4" align="center" style="margin-top:5px;float:left;"><a href="<c:url value="/orderHistory" />"><i class="fa-sharp fa-solid fa-clipboard-check" style="color:gray"></i></a><br>歷史訂單</div>
 		</div>
+	</div>
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	
 	<!-- Line LIFF SDK v2 版 -->
-<!-- 	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
+	<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 	<!-- Core theme JS-->
-<%-- 	<script src="<c:url value="/resources/js/scripts.js"/>"></script> --%>
-<%-- 	<script src="<c:url value="/resources/js/line-liff.js"/>"></script>  --%>
+	<script src="<c:url value="/resources/js/scripts.js"/>"></script>
+	<script src="<c:url value="/resources/js/line-liff.js"/>"></script> 
+	<script type="text/javascript">
+	function getUser(){
+		$.ajax({
+			   type: "POST",
+			   url: '<c:url value="/order/Line" />',
+			   data: {id:$('#uLineD').val(),name:$('#uName').text()}
+		   })
+	}
+	</script>
 </body>
 </html>
